@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { tasksFetchingError, taskCreate, tasksFetching } from '../actions';
+import { useDispatch } from 'react-redux';
+import { tasksFetchingError, taskCreate } from '../actions';
 import { useHttp } from '../hooks/http.hook';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,8 +8,6 @@ const TaskForm = () => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-
-    const {tasksStatusLoading} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

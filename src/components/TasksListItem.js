@@ -14,6 +14,7 @@ const TasksListItem = (props) => {
         setCurrentTask(task);
         setEditTask(true);
     }
+    
     return (
         <tr className="table-outline">
             <td onClick={onDone} className='pointer col-1 text-center'>

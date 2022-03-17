@@ -44,8 +44,6 @@ const TasksFilter = () => {
         })
     }
 
-
-
     return (
         <div className="row mt-4 d-flex justify-content-between">
             <div className="col-lg-4 col-md-3 offset-lg-2 offset-md-1">

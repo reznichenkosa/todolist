@@ -10,6 +10,7 @@ const Task = ({setCurrentTask, onChange, setEditTask, editTask, id, title, descr
     useEffect(() =>{
         if (title) setNewTitle(title);
         if (description) setNewDescription(description);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [editTask]);
 
 
