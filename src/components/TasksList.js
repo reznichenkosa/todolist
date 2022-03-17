@@ -4,9 +4,9 @@ import { useHttp } from '../hooks/http.hook';
 import TasksListItem from './TasksListItem';
 import { tasksFetching, tasksFetched, tasksFetchingError, taskDelete, taskChange } from '../actions/index';
 import Task from './Task';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import sortingByParam from '../utils/sorting';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const TasksList = () => {
 
@@ -53,7 +53,7 @@ const TasksList = () => {
                             <span className="visually-hidden">Loading...</span>
                         </div>
                     </div> :
-                    <table className="table table-hover">
+                    <table initial={{opacity: 0}} animate={{ opacity: 1 }} className="table table-hover">
                         <thead>
                             <tr>
                                 <th onClick={() => sort === 'doneUpDown' ? setSort('doneDownUp') : setSort('doneUpDown')}
@@ -73,28 +73,23 @@ const TasksList = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <TransitionGroup component={null}>
+                            <AnimatePresence>
                             { sortedAndFilteredTask.map(item => 
-                                    <CSSTransition
-                                    key={item.id} 
-                                    timeout={500}
-                                    classNames="item"
-                                    >
-                                        <TasksListItem setEditTask={setEditTask}
+                                        <TasksListItem key={item.id} setEditTask={setEditTask}
                                                     setCurrentTask={setCurrentTask} 
                                                     onDone={() => onChange(item, {isDone: !item.isDone})} 
                                                     onDelete={() => onDelete(item.id)}{...item}/>
-                                    </CSSTransition>)}
-                            </TransitionGroup>
+                                    )}
+                            </AnimatePresence>
                         </tbody> 
                     </table>
                 }
                 {sortedAndFilteredTask.length === 0 ? 
-                            <div className="d-flex justify-content-center">
+                            <motion.div transition={{duration: 0.5, delay: .5}} initial={{opacity: 0}} animate={{ opacity: 1 }} className="d-flex justify-content-center">
                                 <div className="badge bg-success text-wrap text-center mx-auto">
                                     There are not tasks
                                 </div>
-                            </div>  : null}
+                            </motion.div>  : null}
                 <Task {...currentTask} setCurrentTask={setCurrentTask} onChange={onChange} setEditTask={setEditTask} editTask={editTask}/>
             </div>
         </div>
